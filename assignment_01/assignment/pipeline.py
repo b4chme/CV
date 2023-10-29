@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 from utils import show_image, show_contours, show_corners
 from utils import read_image
-
+import cv2
 from frontalization import rescale_image, gaussian_blur
 
 from frontalization import find_edges, highlight_edges
@@ -12,12 +12,23 @@ from frontalization import find_corners
 
 
 def get_test_pipeline():
-    # BEGIN YOUR CODE
-
-    pipeline = # YOUR CODE
-    
-    # END YOUR CODE
-
+    pipeline = Pipeline([
+        rescale_image,
+        gaussian_blur,
+        find_edges,
+        highlight_edges,
+        find_contours,
+        get_max_contour,
+        find_corners
+    ], {
+        "rescale_image": {"scale_factor": 0.5},
+        "gaussian_blur": {"kernel_size": (5, 5), "sigma": 0.5},
+        "find_edges": {"threshold1": 50, "threshold2": 150},
+        "highlight_edges": {}, 
+        "find_contours": {"mode": cv2.RETR_EXTERNAL, "method": cv2.CHAIN_APPROX_SIMPLE},
+        "get_max_contour": {},
+        "find_corners": {"max_corners": 4, "quality_level": 0.01, "min_distance": 10}
+    })
     return pipeline
 
 

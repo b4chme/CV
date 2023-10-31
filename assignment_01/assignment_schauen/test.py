@@ -12,6 +12,8 @@ from recognition import load_templates
 from sudoku_solver import matrix_to_puzzle, solve_sudoku
 
 # BEGIN YOUR IMPORTS
+from frontalization import frontalize_image
+from recognition import recognize_digits, get_sudoku_cells
 
 # END YOUR IMPORTS
 
@@ -57,7 +59,7 @@ def main():
 
         # BEGIN YOUR CODE
 
-        frontalized_image = # YOUR CODE
+        frontalized_image =  frontalize_image(sudoku_image, pipeline=pipeline)
         
         # END YOUR CODE
 
@@ -70,8 +72,8 @@ def main():
         templates_dict = load_templates()
         # BEGIN YOUR CODE
         
-        sudoku_cells = # YOUR CODE
-        sudoku_matrix = # YOUR CODE
+        sudoku_cells = get_sudoku_cells(frontalized_image)
+        sudoku_matrix = recognize_digits(sudoku_cells, templates_dict)
 
         # END YOUR CODE
 
